@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dev eojao</title>
+    <meta name="description" content="Portfolio profissional">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@tailwindcss/typography/dist/typography.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="https://api.dicebear.com/6.x/identicon/svg?seed=portfolio" />
+</head>
+<body class="bg-black text-gray-200" style="font-family: 'Poppins', sans-serif;">
+    <div id="app" class="min-h-screen">
+        <!-- Navigation -->
+        <nav class="bg-gray-900 text-white p-4 sticky top-0 z-50 shadow-lg">
+            <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
+                <h1 class="text-2xl font-bold mb-4 md:mb-0 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500">Dev Portfolio</h1>
+                <ul class="flex space-x-6">
+                    <li><a href="#about" class="hover:text-purple-400 transition-colors duration-300">Sobre</a></li>
+                    <li><a href="#skills" class="hover:text-purple-400 transition-colors duration-300">Habilidades</a></li>
+                    <li><a href="#projects" class="hover:text-purple-400 transition-colors duration-300">Projetos</a></li>
+                    <li><a href="#contact" class="hover:text-purple-400 transition-colors duration-300">Contato</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <header class="bg-gradient-to-r from-purple-900 to-indigo-800 text-white py-20">
+            <div class="container mx-auto px-4 text-center relative overflow-hidden">
+                <h2 class="text-4xl md:text-6xl font-bold mb-4" data-aos="fade-down">{{ profile.name }}</h2>
+                <p class="text-xl mb-8" data-aos="fade-up" data-aos-delay="200">{{ profile.title }}</p>
+                </button>
+            </div>
+        </header>
+
+        <!-- Skills Section with animation -->
+        <section id="skills" class="py-16 bg-gray-900">
+            <div class="container mx-auto px-4">
+                <h3 class="text-3xl font-bold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500">Habilidades</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <div v-for="skill in skills" :key="skill.name" 
+                         class="p-6 border border-gray-700 bg-gray-800 rounded-lg text-center hover:shadow-xl hover:shadow-purple-500/10 transition duration-300 transform hover:-translate-y-1">
+                        <i :class="skill.icon" class="text-5xl mb-4 text-purple-400"></i>
+                        <h4 class="font-semibold">{{ skill.name }}</h4>
+                        <div class="w-full bg-gray-700 rounded-full h-2 mt-2">
+                            <div class="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full" :style="{ width: '0%' }" :ref="'skill-' + skill.name"></div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-16 bg-gray-800 relative">
+            <div class="container mx-auto px-4">
+                <h3 class="text-3xl font-bold text-center mb-12">Projetos</h3>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div v-for="project in projects" :key="project.title" 
+                         class="bg-gray-900 rounded-lg overflow-hidden shadow-lg hover:shadow-xl hover:shadow-purple-500/20 transition transform hover:scale-105 duration-300" data-aos="fade-up" data-aos-delay="100">
+                        <img :src="project.image" :alt="project.title" class="w-full h-48 object-cover transition-transform duration-500 hover:scale-110">
+                        <div class="p-6">
+                            <h4 class="font-bold text-xl mb-2 text-purple-300">{{ project.title }}</h4>
+                            <p class="text-gray-400 mb-4">{{ project.description }}</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span v-for="tech in project.technologies" :key="tech"
+                                      class="px-3 py-1 bg-gray-700 rounded-full text-sm text-purple-200">
+                                    {{ tech }}
+                                </span>
+                            </div>
+                            <div class="mt-4 flex space-x-4">
+                                <a :href="project.github" target="_blank" 
+                                   class="text-purple-400 hover:text-purple-300 transition-colors duration-300">GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-16 bg-gray-900">
+            <div class="container mx-auto px-4">
+                <h3 class="text-3xl font-bold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500">Links</h3>
+                <div class="max-w-lg mx-auto">
+                    <div class="flex flex-col space-y-4">
+                        <div class="flex items-center space-x-4 p-6 bg-gray-800 rounded-lg hover:bg-gray-700 transition-all duration-300 transform hover:-translate-x-1 hover:shadow-lg hover:shadow-purple-500/20" data-aos="fade-right">
+                            <svg class="w-8 h-8 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                            <a :href="'https://mail.google.com/mail/?view=cm&fs=1&to=' + contact.email" target="_blank" class="text-purple-400 hover:text-purple-300 transition-colors duration-300 text-lg">
+                                {{ contact.email }}
+                            </a>
+                            
+                        </div>
+                        <div class="flex items-center space-x-4 p-6 bg-gray-800 rounded-lg hover:bg-gray-700 transition-all duration-300 transform hover:-translate-x-1 hover:shadow-lg hover:shadow-purple-500/20" data-aos="fade-right" data-aos-delay="100">
+                            <svg class="w-8 h-8 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                      d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
+                            </svg>
+                            <a :href="contact.linkedin" target="_blank" class="text-purple-400 hover:text-purple-300 transition-colors duration-300 text-lg">
+                                LinkedIn 
+                            </a>
+                        </div>
+                        <div class="flex items-center space-x-4 p-6 bg-gray-800 rounded-lg hover:bg-gray-700 transition-all duration-300 transform hover:-translate-x-1 hover:shadow-lg hover:shadow-purple-500/20" data-aos="fade-right" data-aos-delay="200">
+                            <svg class="w-8 h-8 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                      d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4"/>
+                            </svg>
+                            <a :href="contact.github" target="_blank" class="text-purple-400 hover:text-purple-300 transition-colors duration-300 text-lg">
+                                GitHub 
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-center py-8 border-t border-gray-800">
+        <div class="container mx-auto">
+            <p class="text-gray-400">© 2025 João Miguel  | Todos os direitos reservados</p>
+        </div>
+    </footer>
+
+    <script type="module">
+        const { createApp, ref } = Vue;
+
+        createApp({
+            setup() {
+                const profile = ref({
+                    name: 'Eojão Developer',
+                    title: 'Full Stack Developer ',
+                });
+
+                const skills = ref([
+                    { name: 'JavaScript', level: 90, icon: 'fab fa-js' },
+                    { name: 'Mysql', level: 85, icon: 'fab fa-mysql' },
+                    { name: 'EJS', level: 80, icon: 'fab fa-python' },
+                    { name: 'Node.js', level: 85, icon: 'fab fa-node' },
+                    { name: 'Java', level: 75, icon: 'fab fa-java' },
+                    { name: 'HTML5', level: 95, icon: 'fab fa-html5' },
+                    { name: 'CSS3', level: 90, icon: 'fab fa-css3-alt' },
+                    { name: 'Git', level: 85, icon: 'fab fa-git-alt' },
+                ]);
+
+                const projects = ref([
+                    {
+                        title: 'SGA',
+                        description: 'Um sistema web produzido para aluguel de armários e compra de produtos integrado , Criado com EJS E Node.js backend',
+                        image: 'https://picsum.photos/seed/ecommerce/400/300',
+                        technologies: ['EJS', 'Node.js', 'Mysql'],
+                        github: 'https://github.com',
+                        demo: 'https://demo.com'
+                    },
+                    {
+                        title: 'Task Management App',
+                        description: 'A real-time task management application with collaborative features',
+                        image: 'https://picsum.photos/seed/tasks/400/300',
+                        technologies: ['React', 'Firebase', 'Tailwind'],
+                        github: 'https://github.com',
+                        demo: 'https://demo.com'
+                    },
+                    {
+                        title: 'Weather Dashboard',
+                        description: 'Interactive weather forecast application with OpenWeather API integration',
+                        image: 'https://picsum.photos/seed/weather/400/300',
+                        technologies: ['JavaScript', 'API', 'CSS'],
+                        github: 'https://github.com',
+                        demo: 'https://demo.com'
+                    },
+                    
+                ]);
+
+                const contact = ref({
+                    email: 'joaopanhossi861@gmail.com',
+                    linkedin: 'https://www.linkedin.com/in/jo%C3%A3o-miguel-panhossi-0a5b682b5?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app',
+                    github: 'https://github.com/DevJoaoMiguel'
+                });
+
+                const darkMode = ref(true);
+
+                const downloadCV = () => {
+                    // Implement CV download functionality
+                    alert('Your CV is being downloaded...');
+                };
+                
+                const toggleTheme = () => {
+                    darkMode.value = !darkMode.value;
+                    if (darkMode.value) {
+                        document.body.classList.add('bg-black');
+                        document.body.classList.add('text-gray-200');
+                        document.body.classList.remove('bg-gray-100');
+                        document.body.classList.remove('text-gray-800');
+                    } else {
+                        document.body.classList.remove('bg-black');
+                        document.body.classList.remove('text-gray-200');
+                        document.body.classList.add('bg-gray-100');
+                        document.body.classList.add('text-gray-800');
+                    }
+                };
+                
+                // Initialize AOS animation library
+                Vue.onMounted(() => {
+                    AOS.init({
+                        duration: 800,
+                        easing: 'cubic-bezier(0.25, 0.1, 0.25, 1.0)',
+                        once: true
+                    });
+                    
+                    // Animate skill bars
+                    setTimeout(() => {
+                        skills.value.forEach(skill => {
+                            const el = document.querySelector(`[ref="skill-${skill.name}"]`);
+                            if (el) el.style.width = skill.level + '%';
+                        });
+                    }, 500);
+                });
+
+                return {
+                    profile,
+                    skills,
+                    projects,
+                    contact,
+                    darkMode,
+                    toggleTheme,
+                    currentYear: new Date().getFullYear(),
+                    animateSkill: true,
+                    downloadCV
+                };
+            }
+        }).mount('#app');
+    </script>
+    <script src="https://kit.fontawesome.com/4db6b32bd3.js" crossorigin="anonymous"></script>
+</body>
+</html>
